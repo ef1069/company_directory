@@ -7,8 +7,10 @@ class EmployeeNode:
         right (EmployeeNode): The right child node, representing the right subordinate.
     '''
 
-    # Delete this line and implement the class below
-    pass
+    def __init__(self, name):
+        self.name = name
+        self.left = None
+        self.right = None
 
 class TeamTree:
     '''
@@ -21,8 +23,46 @@ class TeamTree:
 
     '''
     
-    # Delete this line and implement the class below
-    pass
+    def __init__(self):
+        self.root = None
+
+    def insert(self, manager_name, employee_name, side, current_node=None):
+        # Case 1: Empty Tree
+        if self.root is None:
+            print("Tree is empty. Cannot insert without root")
+            return
+        
+        # Start from root if not part of recursive call
+        if current_node is None:
+            current_node = self.root
+
+        # Case 2: Found parent node
+        if current_node.name == manager_name:
+            if side == "left" and current_node.left is None:
+                current_node.left = EmployeeNode(employee_name)
+                print(f"{employee_name} added under {manager_name} on the left.")
+                return True
+
+            elif side == "right" and current_node.right is None:
+                current_node.right = EmployeeNode(employee_name)
+                print(f"{employee_name} added under {manager_name} on the right.")
+                return True
+            else:
+                print(f"{manager_name} already has a {side} subordinate.")
+                return True
+
+    def print_tree(self, node=None, level=0):
+        if node is None:
+            if level == 0:
+                node = self.root
+            else: 
+                return
+
+        indent = "  " * level
+        print(f"-{node.name}")
+
+        self.print_tree(node.left, level + 1)
+        self.print_tree(node.right, level + 1)
 
 # Test your code here
 
