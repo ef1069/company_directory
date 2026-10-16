@@ -58,19 +58,14 @@ class TeamTree:
             else: 
                 return
 
-        indent = "  " * level
-        print(f"-{node.name}")
+        else:
+            indent = "  " * level
+            print(f"{indent}-{node.name}")
 
-        self.print_tree(node.left, level + 1)
-        self.print_tree(node.right, level + 1)
+            self.print_tree(node.left, level + 1)
+            self.print_tree(node.right, level + 1)
 
 # Test your code here
-
-
-
-
-
-
 
 
 
@@ -110,3 +105,5 @@ def company_directory():
             break
         else:
             print("❌ Invalid option. Try again.")
+
+company_directory()
