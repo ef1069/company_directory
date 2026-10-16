@@ -51,19 +51,38 @@ class TeamTree:
                 print(f"{manager_name} already has a {side} subordinate.")
                 return True
 
+        # Case 3: Search subtrees
+        found_left = False
+        found_right = False
+
+        if current_node.left:
+            found_left = self.insert(manager_name, employee_name, side, current_node.left)
+
+        if current_node.right and not found_left:
+            found_right = self.insert(manager_name, employee_name, side, current_node.right)
+
+        #Case 4: Parent node not found
+        if not(found_left or found_right):
+            if current_node == self.root:
+                print(f"Manager {manager_name} not found in the tree")
+                return False
+
+            return True
+
     def print_tree(self, node=None, level=0):
         if node is None:
-            if level == 0:
-                node = self.root
-            else: 
+            if level != 0:
                 return
+            node = self.root
 
-        else:
-            indent = "  " * level
-            print(f"{indent}-{node.name}")
+        if node is None:
+            return
+    
+        indent = "  " * level
+        print(f"{indent} -{node.name}")
 
-            self.print_tree(node.left, level + 1)
-            self.print_tree(node.right, level + 1)
+        self.print_tree(node.left, level + 1)
+        self.print_tree(node.right, level + 1)
 
 # Test your code here
 
